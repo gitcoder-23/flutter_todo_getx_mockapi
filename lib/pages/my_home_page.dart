@@ -47,6 +47,45 @@ class MyHomePage extends StatelessWidget {
       );
     }
 
+    void onDialogBox() {
+      Get.defaultDialog(
+        title: 'Getx Dialogbox',
+        middleText: 'This is new dialogbox',
+        backgroundColor: const Color.fromARGB(255, 210, 200, 229),
+        content: Column(
+          children: [
+            const Text('1st Test'),
+            const Text('2nd Test'),
+            Row(
+              children: [
+                Expanded(
+                  child: TextFormField(),
+                ),
+              ],
+            ),
+          ],
+        ),
+        titlePadding: const EdgeInsets.all(8.0),
+        contentPadding: const EdgeInsets.all(8.0),
+        radius: 20,
+        actions: [
+          OutlinedButton(
+            onPressed: () {
+              // Navigator.of(context).pop();
+              Get.back();
+            },
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            child: const Text('Done'),
+          )
+        ],
+        // onCancel: () {},
+        // onConfirm: () {},
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home Page Getx Feature Demo'),
@@ -62,6 +101,15 @@ class MyHomePage extends StatelessWidget {
                 ElevatedButton(
                   onPressed: onSnackBar,
                   child: const Text('Show Snakbar'),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: onDialogBox,
+                  child: const Text('Show Dialogbox'),
                 ),
               ],
             )
