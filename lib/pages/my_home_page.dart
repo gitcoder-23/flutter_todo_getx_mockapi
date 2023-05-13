@@ -86,6 +86,89 @@ class MyHomePage extends StatelessWidget {
       );
     }
 
+    void onBottomSheet() {
+      Get.bottomSheet(
+        // backgroundColor: Colors.deepPurple[500],
+        Container(
+          padding: const EdgeInsets.all(20),
+          height: 300,
+          // color: Colors.white,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      Container(
+                        width: 40,
+                        height: 10,
+                        // color: Colors.green,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.green,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                  Column(
+                    children: const [
+                      SizedBox(
+                        width: 20,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 40,
+                    child: Divider(
+                      thickness: 3,
+                      color: Colors.amberAccent,
+                    ),
+                  ),
+                  const Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      OutlinedButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        child: const Text('Close'),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        child: const Text('Done'),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const Text('This is bottomsheet'),
+              const SizedBox(
+                height: 20,
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home Page Getx Feature Demo'),
@@ -112,7 +195,16 @@ class MyHomePage extends StatelessWidget {
                   child: const Text('Show Dialogbox'),
                 ),
               ],
-            )
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: onBottomSheet,
+                  child: const Text('Show Bottomsheet'),
+                ),
+              ],
+            ),
           ],
         ),
       )),
