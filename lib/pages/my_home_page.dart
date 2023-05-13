@@ -3,9 +3,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     void onSnackBar() {
@@ -205,6 +210,35 @@ class MyHomePage extends StatelessWidget {
                 ),
               ],
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    if (mounted) {
+                      // Without route
+                      // Get.to(const AboutUsPage());
+                      // With route
+                      Get.toNamed('/about');
+                      // Navigator.of(context).push(
+                      //   MaterialPageRoute(
+                      //     builder: (context) => const AboutUsPage(),
+                      //   ),
+                      // );
+                    }
+                  },
+                  child: const Text('About us'),
+                ),
+                const Spacer(),
+                ElevatedButton(
+                  onPressed: () {
+                    // With route with not go back
+                    Get.offAllNamed('/contact');
+                  },
+                  child: const Text('Contact'),
+                ),
+              ],
+            )
           ],
         ),
       )),

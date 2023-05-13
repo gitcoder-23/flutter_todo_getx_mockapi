@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo_getx_mockapi/components/routes.dart';
 import 'package:get/get.dart';
 
 import 'pages/my_home_page.dart';
@@ -20,6 +21,14 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.deepPurple,
         scaffoldBackgroundColor: Colors.deepPurple[100],
       ),
+
+      // Routing using Getx
+      // getPages: [
+      //   GetPage(name: '/', page: () => const MyHomePage()),
+      //   GetPage(name: '/about', page: () => const AboutUsPage()),
+      //   GetPage(name: '/contact', page: () => const ContactUsPage()),
+      // ],
+      getPages: allRoutedPages,
       home: const MyHomePage(),
     );
   }
