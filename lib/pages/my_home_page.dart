@@ -174,6 +174,12 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     }
 
+    void onSelectLanguage() {
+      if (mounted) {
+        Get.toNamed('/language');
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home Page Getx Feature Demo'),
@@ -238,7 +244,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: const Text('Contact'),
                 ),
               ],
-            )
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: onSelectLanguage,
+                  child: const Text('Select Language'),
+                ),
+              ],
+            ),
           ],
         ),
       )),
