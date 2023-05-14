@@ -252,6 +252,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: onSelectLanguage,
                   child: Text('select_lng'.tr),
                 ),
+                const Spacer(),
+                ElevatedButton(
+                  onPressed: () {
+                    Get.toNamed('/counter');
+                  },
+                  child: Text('counter_app'.tr),
+                ),
               ],
             ),
           ],

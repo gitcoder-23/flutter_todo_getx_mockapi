@@ -10,6 +10,9 @@ class LocalLanguages extends Translations {
           'please_select': 'Please select one which you want to choose',
           'select_lng': 'Select Language',
           'home_getx_demo': 'Home Page Getx Feature Demo',
+          'counter_app': 'Counter App',
+          'counter_head': 'Counter',
+          'count_btn': 'Count',
         },
         'hindi': {
           'english_lng': 'अंग्रेज़ी',
@@ -18,6 +21,9 @@ class LocalLanguages extends Translations {
           'please_select': 'कृपया वह चुनें जिसे आप चूसना चाहते हैं',
           'select_lng': 'चुनिंदा भाषा में',
           'home_getx_demo': 'होम पेज फीचर डेमो हो जाता है',
+          'counter_app': 'काउंटर ऐप',
+          'counter_head': 'विरोध करना',
+          'count_btn': 'गिनती',
         },
       };
 }

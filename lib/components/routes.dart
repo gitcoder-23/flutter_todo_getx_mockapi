@@ -1,3 +1,4 @@
+import 'package:flutter_todo_getx_mockapi/pages/counter_page.dart';
 import 'package:get/get.dart';
 
 import '../pages/about_us_page.dart';
@@ -26,6 +27,12 @@ final allRoutedPages = [
     name: '/language',
     page: () => const LanguageChange(),
     transition: Transition.leftToRightWithFade,
+    transitionDuration: const Duration(milliseconds: 500),
+  ),
+  GetPage(
+    name: '/counter',
+    page: () => const CounterPage(),
+    transition: Transition.circularReveal,
     transitionDuration: const Duration(milliseconds: 500),
   ),
 ];
