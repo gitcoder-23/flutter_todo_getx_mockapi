@@ -182,7 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Page Getx Feature Demo'),
+        title: Text('home_getx_demo'.tr),
       ),
       body: SafeArea(
           child: Padding(
@@ -250,7 +250,7 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 ElevatedButton(
                   onPressed: onSelectLanguage,
-                  child: const Text('Select Language'),
+                  child: Text('select_lng'.tr),
                 ),
               ],
             ),
