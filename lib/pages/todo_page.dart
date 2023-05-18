@@ -47,7 +47,76 @@ class TodoPage extends StatelessWidget {
       );
     }
 
-    openEditDialog() {}
+    openEditDialog() {
+      Get.defaultDialog(
+        title: 'Edit a task',
+        backgroundColor: const Color.fromARGB(255, 210, 200, 229),
+        content: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    controller: textTodoName,
+                    decoration: const InputDecoration(hintText: "Enter Task"),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+        titlePadding: const EdgeInsets.all(8.0),
+        contentPadding: const EdgeInsets.all(8.0),
+        radius: 20,
+        actions: [
+          OutlinedButton(
+            onPressed: () {
+              Get.back();
+            },
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              print('textTodoName--> ${textTodoName.text}');
+              Get.back();
+            },
+            child: const Text('Save'),
+          )
+        ],
+      );
+    }
+
+    onDeleteDialog() {
+      Get.defaultDialog(
+        title: 'Delete Todo',
+        backgroundColor: const Color.fromARGB(255, 210, 200, 229),
+        content: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Text('Do you want to delete?'),
+              ],
+            ),
+          ],
+        ),
+        actions: [
+          OutlinedButton(
+            onPressed: () {
+              Get.back();
+            },
+            child: const Text('No'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              print('delete');
+            },
+            child: const Text('Yes'),
+          )
+        ],
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -145,7 +214,7 @@ class TodoPage extends StatelessWidget {
                                 width: 10,
                               ),
                               IconButton(
-                                onPressed: () {},
+                                onPressed: onDeleteDialog,
                                 icon: const Icon(
                                   Icons.delete,
                                   size: 20,
