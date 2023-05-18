@@ -180,6 +180,12 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     }
 
+    void onTodoAppSelected() {
+      if (mounted) {
+        Get.toNamed('/todo');
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('home_getx_demo'.tr),
@@ -259,6 +265,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   child: Text('counter_app'.tr),
                 ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: onTodoAppSelected,
+                  child: const Text('Todo App'),
+                ),
+                const Spacer(),
               ],
             ),
           ],
