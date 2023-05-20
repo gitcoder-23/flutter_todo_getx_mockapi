@@ -16,3 +16,6 @@ https://medium.com/@iamrutudhvaj/getx-flutter-b3781be2b644
 
 vid--> 11
 
+// Model generator json to dart
+https://app.quicktype.io/
+

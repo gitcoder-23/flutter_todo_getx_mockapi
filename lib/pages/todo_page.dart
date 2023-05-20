@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo_getx_mockapi/controllers/api/api_controller.dart';
+import 'package:flutter_todo_getx_mockapi/models/todo_model.dart';
 import 'package:get/get.dart';
 
 class TodoPage extends StatelessWidget {
@@ -6,6 +8,7 @@ class TodoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TodoController todoController = Get.put(TodoController());
     TextEditingController textTodoName = TextEditingController();
 
     onOpenDialog() {
@@ -158,81 +161,96 @@ class TodoPage extends StatelessWidget {
           child: Column(
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
                   Text(
                     'All Todos',
                     style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black45,
+                      fontSize: 20,
+                      color: Colors.black,
                     ),
                   ),
                 ],
               ),
               Expanded(
                 child: ListView.builder(
+                  itemCount: todoController.TodoList.length,
                   itemBuilder: (context, index) {
-                    return Container(
-                      padding: const EdgeInsets.all(10),
-                      margin: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: Colors.deepPurple[500],
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Row(
-                        children: [
-                          Row(
-                            children: const [
-                              Icon(
-                                Icons.task,
-                                size: 20,
-                                color: Colors.white,
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                'Data',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Spacer(),
-                          Row(
-                            children: [
-                              IconButton(
-                                onPressed: openEditDialog,
-                                icon: const Icon(
-                                  Icons.edit,
-                                  size: 20,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              IconButton(
-                                onPressed: onDeleteDialog,
-                                icon: const Icon(
-                                  Icons.delete,
-                                  size: 20,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                    TodoModelMain todoData = todoController.TodoList[index];
+                    print('todoData--> $todoData');
+                    return Obx(
+                      () => Column(
+                        children: todoController.TodoList.map(
+                          (element) => todoDataList(
+                              todoData, openEditDialog, onDeleteDialog),
+                        ).toList(),
                       ),
                     );
                   },
-                  itemCount: 4,
                 ),
               )
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget todoDataList(TodoModelMain todoData, Null Function() openEditDialog,
+      Null Function() onDeleteDialog) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.deepPurple[500],
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Row(
+        children: [
+          Row(
+            children: [
+              const Icon(
+                Icons.task,
+                size: 20,
+                color: Colors.white,
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                todoData.todoName!,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                ),
+              ),
+            ],
+          ),
+          const Spacer(),
+          Row(
+            children: [
+              IconButton(
+                onPressed: openEditDialog,
+                icon: const Icon(
+                  Icons.edit,
+                  size: 20,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              IconButton(
+                onPressed: onDeleteDialog,
+                icon: const Icon(
+                  Icons.delete,
+                  size: 20,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
