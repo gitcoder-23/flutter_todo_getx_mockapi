@@ -8,7 +8,7 @@ class TodoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TodoController todoController = Get.put(TodoController());
+    final TodoController todoController = Get.put(TodoController());
     TextEditingController textTodoName = TextEditingController();
 
     onOpenDialog() {
@@ -173,22 +173,52 @@ class TodoPage extends StatelessWidget {
                 ],
               ),
               Expanded(
-                child: ListView.builder(
-                  itemCount: todoController.TodoList.length,
-                  itemBuilder: (context, index) {
-                    TodoModelMain todoData = todoController.TodoList[index];
-                    print('todoData--> $todoData');
-                    return Obx(
-                      () => Column(
-                        children: todoController.TodoList.map(
-                          (element) => todoDataList(
-                              todoData, openEditDialog, onDeleteDialog),
-                        ).toList(),
-                      ),
-                    );
+                child: Obx(
+                  () {
+                    if (todoController.isLoading.value) {
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.purple,
+                        ),
+                      );
+                    } else {
+                      return ListView.builder(
+                        itemCount: todoController.todoList.length,
+                        itemBuilder: (context, index) {
+                          TodoModelMain todoData =
+                              todoController.todoList[index];
+
+                          return todoDataList(
+                            todoData,
+                            openEditDialog,
+                            onDeleteDialog,
+                          );
+                        },
+                      );
+                    }
                   },
                 ),
-              )
+              ),
+
+              // Expanded(
+              //   child: ListView.builder(
+              //     itemCount: todoController.todoList.length,
+              //     itemBuilder: (context, index) {
+              //       TodoModelMain todoData = todoController.todoList[index];
+              //       print('todoData--> $todoData');
+              //       return Obx(
+              //         () => Column(
+              //           children: todoController.todoList
+              //               .map(
+              //                 (element) => todoDataList(
+              //                     element, openEditDialog, onDeleteDialog),
+              //               )
+              //               .toList(),
+              //         ),
+              //       );
+              //     },
+              //   ),
+              // ),
             ],
           ),
         ),
