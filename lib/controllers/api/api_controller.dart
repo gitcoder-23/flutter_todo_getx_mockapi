@@ -95,6 +95,38 @@ class TodoController extends GetxController {
     }
   }
 
+  //Post Todo--add toto
+  Future<void> editTodo(todoName, todoId) async {
+    print('todoName--state--> $todoName,  -> $todoId');
+    try {
+      isLoading.value = true;
+      final response = "".obs;
+
+      final uriRes = await http.put(
+        Uri.parse('$baseUrl/$todoId'),
+        headers: {'content-type': 'application/json'},
+        body: json.encode(
+          {"todoName": todoName},
+        ),
+      );
+      if (uriRes.statusCode == 200) {
+        print('Done to edit');
+
+        response.value = uriRes.body;
+        todoList.clear();
+        isLoading.value = false;
+        getTodos();
+      } else {
+        print('failed to add');
+        isLoading.value = false;
+      }
+
+      // print('resData--> $resData');
+    } catch (e) {
+      print('add--error--> $e');
+    }
+  }
+
   // Delete Todo
   Future<void> deleteTodo(todoTd) async {
     print('todoTd--state--> $todoTd');

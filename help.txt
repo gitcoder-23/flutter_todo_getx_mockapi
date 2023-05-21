@@ -19,8 +19,14 @@ https://lottiefiles.com/animation/flutter
 
 https://medium.com/@iamrutudhvaj/getx-flutter-b3781be2b644
 
-vid--> 11
+
 
 // Model generator json to dart
 https://app.quicktype.io/
 
+
+
+// Next todo using rest api
+https://youtube.com/playlist?list=PLXbYsh3rUPSzuLcZsIkpDmftSQbFmUq9x
+
+using ---> https://api.nstack.in/

@@ -47,7 +47,8 @@ class TodoListPage extends StatelessWidget {
           Row(
             children: [
               IconButton(
-                onPressed: openEditDialog ?? openEditDialog(),
+                onPressed: () =>
+                    openEditDialog(todoData.id, todoData.todoName!),
                 icon: const Icon(
                   Icons.edit,
                   size: 20,

@@ -44,6 +44,8 @@ class _TodoPageState extends State<TodoPage> {
   Widget build(BuildContext context) {
     final TodoController todoController = Get.put(TodoController());
 
+    TextEditingController textTodoName = TextEditingController();
+
     onAddTodo() {
       Get.defaultDialog(
         title: 'Enter new task',
@@ -79,13 +81,18 @@ class _TodoPageState extends State<TodoPage> {
               textTodoName.clear();
               Get.back();
             },
-            child: const Text('Save'),
+            child: const Text('Submit'),
           )
         ],
       );
     }
 
-    openEditDialog() {
+    openEditDialog(eTodoId, todoSpecificData) {
+      print('eTodoId--> $eTodoId  $todoSpecificData');
+
+      final todoName = todoSpecificData;
+      textTodoName.text = todoName.toString();
+
       Get.defaultDialog(
         title: 'Edit a task',
         backgroundColor: const Color.fromARGB(255, 210, 200, 229),
@@ -115,7 +122,10 @@ class _TodoPageState extends State<TodoPage> {
           ),
           ElevatedButton(
             onPressed: () {
-              print('textTodoName--> ${textTodoName.text}');
+              todoController.editTodo(
+                textTodoName.text,
+                eTodoId,
+              );
               Get.back();
             },
             child: const Text('Save'),

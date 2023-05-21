@@ -9,7 +9,6 @@ class TodoModelMain {
   TodoModelMain.fromJson(Map<String, dynamic> json) {
     createdAt = json["createdAt"];
     todoName = json["todoName"];
-    details = json["details"];
     id = json["id"];
   }
 
@@ -17,7 +16,6 @@ class TodoModelMain {
     final Map<String, dynamic> data = <String, dynamic>{};
     data["createdAt"] = createdAt;
     data["todoName"] = todoName;
-    data["details"] = details;
     data["id"] = id;
     return data;
   }
