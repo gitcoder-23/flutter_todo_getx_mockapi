@@ -38,6 +38,7 @@ class TodoController extends GetxController {
           todoList.add(TodoModelMain.fromJson(todoRes));
         }
       }
+      // todoList.clear();
     } catch (e) {
       isLoading(false);
       print('error-fetch-todo--> $e');

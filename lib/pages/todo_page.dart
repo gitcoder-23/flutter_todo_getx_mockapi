@@ -15,6 +15,7 @@ class TodoPage extends StatefulWidget {
 class _TodoPageState extends State<TodoPage> {
   TextEditingController textTodoName = TextEditingController();
 
+  final TodoController todoController = Get.put(TodoController());
   @override
   void initState() {
     getAllTodos();
@@ -34,10 +35,17 @@ class _TodoPageState extends State<TodoPage> {
 
   Future<void> _onRefresh() async {
     try {
+      todoController.todoList.clear();
       getAllTodos();
     } catch (e) {
       print('todo-List-refresh[error]: $e');
     }
+  }
+
+  @override
+  void dispose() {
+    getAllTodos();
+    super.dispose();
   }
 
   @override
@@ -235,10 +243,10 @@ class _TodoPageState extends State<TodoPage> {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Text(
-                    'All Todos',
-                    style: TextStyle(
+                    todoController.todoList.isEmpty ? '' : 'All Todos',
+                    style: const TextStyle(
                       fontSize: 20,
                       color: Colors.black,
                     ),
@@ -248,7 +256,24 @@ class _TodoPageState extends State<TodoPage> {
               Expanded(
                 child: Obx(
                   () {
-                    if (todoController.isLoading.value) {
+                    // if (todoController.isLoading.value) {
+                    //   return const Center(
+                    //     child: CircularProgressIndicator(
+                    //       color: Colors.purple,
+                    //     ),
+                    //   );
+                    // } else
+                    if (todoController.todoList.isEmpty) {
+                      return const Center(
+                        child: Text(
+                          'No Todo Available',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                          ),
+                        ),
+                      );
+                    } else if (todoController.isLoading.value) {
                       return const Center(
                         child: CircularProgressIndicator(
                           color: Colors.purple,
