@@ -58,7 +58,7 @@ class TodoListPage extends StatelessWidget {
                 width: 10,
               ),
               IconButton(
-                onPressed: onDeleteDialog ?? onDeleteDialog(),
+                onPressed: () => onDeleteDialog(todoData.id),
                 icon: const Icon(
                   Icons.delete,
                   size: 20,

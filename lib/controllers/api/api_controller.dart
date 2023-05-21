@@ -94,4 +94,31 @@ class TodoController extends GetxController {
       print('add--error--> $e');
     }
   }
+
+  // Delete Todo
+  Future<void> deleteTodo(todoTd) async {
+    print('todoTd--state--> $todoTd');
+
+    try {
+      isLoading.value = true;
+
+      final uriRes = await http.delete(
+        Uri.parse('$baseUrl/$todoTd'),
+      );
+      print('uriRes--> $uriRes');
+      if (uriRes.statusCode == 200) {
+        print('Done to delete');
+        isLoading.value = false;
+        todoList.clear();
+        getTodos();
+      } else {
+        print('failed to delete');
+        isLoading.value = false;
+      }
+
+      // print('resData--> $resData');
+    } catch (e) {
+      print('delete--error--> $e');
+    }
+  }
 }

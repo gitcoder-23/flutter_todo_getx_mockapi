@@ -124,7 +124,8 @@ class _TodoPageState extends State<TodoPage> {
       );
     }
 
-    onDeleteDialog() {
+    onDeleteDialog(specificTodoId) {
+      print('todoId--> $specificTodoId');
       Get.defaultDialog(
         title: 'Delete Todo',
         backgroundColor: const Color.fromARGB(255, 210, 200, 229),
@@ -148,7 +149,8 @@ class _TodoPageState extends State<TodoPage> {
           ),
           ElevatedButton(
             onPressed: () {
-              print('delete');
+              todoController.deleteTodo(specificTodoId);
+              Get.back();
             },
             child: const Text('Yes'),
           )
