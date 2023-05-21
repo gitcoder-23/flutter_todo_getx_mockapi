@@ -168,6 +168,32 @@ class _TodoPageState extends State<TodoPage> {
       );
     }
 
+    openViewTodo(vId, todoName) {
+      Get.defaultDialog(
+        title: 'View Todo',
+        backgroundColor: const Color.fromARGB(255, 210, 200, 229),
+        content: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('todo Name: $todoName'),
+              ],
+            ),
+          ],
+        ),
+        actions: [
+          OutlinedButton(
+            onPressed: () {
+              Get.back();
+            },
+            child: const Text('Close'),
+          ),
+        ],
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -240,6 +266,7 @@ class _TodoPageState extends State<TodoPage> {
 
                             return TodoListPage(
                               todoData: todoData,
+                              openViewTodo: openViewTodo,
                               openEditDialog: openEditDialog,
                               onDeleteDialog: onDeleteDialog,
                             );

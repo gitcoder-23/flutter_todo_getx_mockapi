@@ -4,10 +4,12 @@ import '../../models/todo_model.dart';
 
 class TodoListPage extends StatelessWidget {
   final TodoModelMain todoData;
+  final Function openViewTodo;
   final Function openEditDialog;
   final Function onDeleteDialog;
   const TodoListPage({
     required this.todoData,
+    required this.openViewTodo,
     required this.openEditDialog,
     required this.onDeleteDialog,
     super.key,
@@ -47,19 +49,31 @@ class TodoListPage extends StatelessWidget {
           Row(
             children: [
               IconButton(
-                onPressed: () =>
-                    openEditDialog(todoData.id, todoData.todoName!),
+                onPressed: () => openViewTodo(
+                  todoData.id,
+                  todoData.todoName!,
+                ),
+                icon: const Icon(
+                  Icons.visibility,
+                  size: 20,
+                  color: Colors.white,
+                ),
+              ),
+              IconButton(
+                onPressed: () => openEditDialog(
+                  todoData.id,
+                  todoData.todoName!,
+                ),
                 icon: const Icon(
                   Icons.edit,
                   size: 20,
                   color: Colors.white,
                 ),
               ),
-              const SizedBox(
-                width: 10,
-              ),
               IconButton(
-                onPressed: () => onDeleteDialog(todoData.id),
+                onPressed: () => onDeleteDialog(
+                  todoData.id,
+                ),
                 icon: const Icon(
                   Icons.delete,
                   size: 20,
