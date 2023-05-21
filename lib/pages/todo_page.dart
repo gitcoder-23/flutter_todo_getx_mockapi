@@ -3,6 +3,8 @@ import 'package:flutter_todo_getx_mockapi/controllers/api/api_controller.dart';
 import 'package:flutter_todo_getx_mockapi/models/todo_model.dart';
 import 'package:get/get.dart';
 
+import 'todolist/todo_list_page.dart';
+
 class TodoPage extends StatefulWidget {
   const TodoPage({super.key});
 
@@ -11,6 +13,8 @@ class TodoPage extends StatefulWidget {
 }
 
 class _TodoPageState extends State<TodoPage> {
+  TextEditingController textTodoName = TextEditingController();
+
   @override
   void initState() {
     getAllTodos();
@@ -39,7 +43,6 @@ class _TodoPageState extends State<TodoPage> {
   @override
   Widget build(BuildContext context) {
     final TodoController todoController = Get.put(TodoController());
-    TextEditingController textTodoName = TextEditingController();
 
     onAddTodo() {
       Get.defaultDialog(
@@ -73,6 +76,7 @@ class _TodoPageState extends State<TodoPage> {
             onPressed: () {
               print('textTodoName--> ${textTodoName.text}');
               todoController.addTodo(textTodoName.text);
+              textTodoName.clear();
               Get.back();
             },
             child: const Text('Save'),
@@ -222,10 +226,10 @@ class _TodoPageState extends State<TodoPage> {
                                 .todoList.reversed
                                 .toList()[index];
 
-                            return todoDataList(
-                              todoData,
-                              openEditDialog,
-                              onDeleteDialog,
+                            return TodoListPage(
+                              todoData: todoData,
+                              openEditDialog: openEditDialog,
+                              onDeleteDialog: onDeleteDialog,
                             );
                           },
                         ),
@@ -257,68 +261,6 @@ class _TodoPageState extends State<TodoPage> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget todoDataList(
-    TodoModelMain todoData,
-    openEditDialog,
-    onDeleteDialog,
-  ) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      margin: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.deepPurple[500],
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Row(
-        children: [
-          Row(
-            children: [
-              const Icon(
-                Icons.task,
-                size: 20,
-                color: Colors.white,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Text(
-                todoData.todoName!,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                ),
-              ),
-            ],
-          ),
-          const Spacer(),
-          Row(
-            children: [
-              IconButton(
-                onPressed: openEditDialog,
-                icon: const Icon(
-                  Icons.edit,
-                  size: 20,
-                  color: Colors.white,
-                ),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              IconButton(
-                onPressed: onDeleteDialog,
-                icon: const Icon(
-                  Icons.delete,
-                  size: 20,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }
