@@ -11,6 +11,8 @@ https://youtu.be/8s1F-2tWvvU
 mock Api--> Using git login
 https://mockapi.io/projects/645df1228d08100293f2b188
 
+// Loading taken website animation
+https://lottiefiles.com/animation/flutter
 
 
 // Navigation management using GetX Flutter.
