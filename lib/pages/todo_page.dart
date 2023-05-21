@@ -3,15 +3,45 @@ import 'package:flutter_todo_getx_mockapi/controllers/api/api_controller.dart';
 import 'package:flutter_todo_getx_mockapi/models/todo_model.dart';
 import 'package:get/get.dart';
 
-class TodoPage extends StatelessWidget {
+class TodoPage extends StatefulWidget {
   const TodoPage({super.key});
+
+  @override
+  State<TodoPage> createState() => _TodoPageState();
+}
+
+class _TodoPageState extends State<TodoPage> {
+  @override
+  void initState() {
+    getAllTodos();
+    super.initState();
+  }
+
+  getAllTodos() async {
+    final TodoController todoController = Get.put(TodoController());
+
+    if (mounted) {
+      todoController.getTodos();
+    } else {
+      await Future.delayed(const Duration(milliseconds: 1000));
+      getAllTodos();
+    }
+  }
+
+  Future<void> _onRefresh() async {
+    try {
+      getAllTodos();
+    } catch (e) {
+      print('todo-List-refresh[error]: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final TodoController todoController = Get.put(TodoController());
     TextEditingController textTodoName = TextEditingController();
 
-    onOpenDialog() {
+    onAddTodo() {
       Get.defaultDialog(
         title: 'Enter new task',
         backgroundColor: const Color.fromARGB(255, 210, 200, 229),
@@ -42,6 +72,7 @@ class TodoPage extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               print('textTodoName--> ${textTodoName.text}');
+              todoController.addTodo(textTodoName.text);
               Get.back();
             },
             child: const Text('Save'),
@@ -137,14 +168,14 @@ class TodoPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton.icon(
-              onPressed: onOpenDialog,
+              onPressed: onAddTodo,
               icon: const Icon(
                 Icons.add,
                 size: 30,
                 color: Colors.white,
               ),
               label: const Text(
-                'Add New',
+                'Add Todo',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   letterSpacing: 1.5,
@@ -182,18 +213,22 @@ class TodoPage extends StatelessWidget {
                         ),
                       );
                     } else {
-                      return ListView.builder(
-                        itemCount: todoController.todoList.length,
-                        itemBuilder: (context, index) {
-                          TodoModelMain todoData =
-                              todoController.todoList[index];
+                      return RefreshIndicator(
+                        onRefresh: _onRefresh,
+                        child: ListView.builder(
+                          itemCount: todoController.todoList.length,
+                          itemBuilder: (context, index) {
+                            TodoModelMain todoData = todoController
+                                .todoList.reversed
+                                .toList()[index];
 
-                          return todoDataList(
-                            todoData,
-                            openEditDialog,
-                            onDeleteDialog,
-                          );
-                        },
+                            return todoDataList(
+                              todoData,
+                              openEditDialog,
+                              onDeleteDialog,
+                            );
+                          },
+                        ),
                       );
                     }
                   },
@@ -226,8 +261,11 @@ class TodoPage extends StatelessWidget {
     );
   }
 
-  Widget todoDataList(TodoModelMain todoData, Null Function() openEditDialog,
-      Null Function() onDeleteDialog) {
+  Widget todoDataList(
+    TodoModelMain todoData,
+    openEditDialog,
+    onDeleteDialog,
+  ) {
     return Container(
       padding: const EdgeInsets.all(10),
       margin: const EdgeInsets.all(10),
